@@ -1,97 +1,86 @@
-import itertools
+class Apriori:
+    def __init__(self, min_support=0.5, min_confidence=0.7):
+        self.min_support = min_support
+        self.min_confidence = min_confidence
+        self.support_data = {}
+        self.frequent_itemsets = []
+        self.rules = []
 
+    # Helper function to generate combinations
+    def _generate_combinations(self, items, k):
+        def combine(start, path):
+            if len(path) == k:
+                combinations.append(path)
+                return
+            for i in range(start, len(items)):
+                combine(i + 1, path + [items[i]])
 
-def generate_candidates(prev_frequents, k):
-    """
-    Generate k-item candidate sets from (k-1)-item frequent itemsets.
-    """
-    candidates = set()
-    items = list(prev_frequents)
-    for i in range(len(items)):
-        for j in range(i + 1, len(items)):
-            union = items[i] | items[j]
-            if len(union) == k:
-                # prune: all (k-1)-subsets must be frequent
-                subsets = itertools.combinations(union, k - 1)
-                if all(frozenset(sub) in prev_frequents for sub in subsets):
-                    candidates.add(union)
-    return candidates
+        combinations = []
+        combine(0, [])
+        return combinations
 
+    def fit(self, transactions):
+        self.frequent_itemsets = []
+        self.support_data = {}
+        num_transactions = len(transactions)
 
-def get_frequent_itemsets(transactions, min_support):
-    """
-    Identify all frequent itemsets using the Apriori principle.
-    Returns a dict mapping frozenset(itemset) to support (float).
-    """
-    transaction_list = list(transactions)
-    total = len(transaction_list)
+        # Step 1: 1-itemsets
+        item_count = {}
+        for transaction in transactions:
+            for item in transaction:
+                key = tuple([item])
+                item_count[key] = item_count.get(key, 0) + 1
 
-    # Count support for single items (L1)
-    counts = {}
-    for t in transaction_list:
-        for item in t:
-            counts[item] = counts.get(item, 0) + 1
-    L1 = {frozenset([item]): count / total for item, count in counts.items() if count / total >= min_support}
+        current_l_set = []
+        for item, count in item_count.items():
+            support = count / num_transactions
+            if support >= self.min_support:
+                current_l_set.append(list(item))
+                self.support_data[tuple(sorted(item))] = support
 
-    frequents = dict(L1)
-    k = 2
-    current_frequents = set(L1.keys())
+        k = 2
+        while current_l_set:
+            self.frequent_itemsets.extend(current_l_set)
+            unique_items = sorted(set(i for items in current_l_set for i in items))
+            candidates = self._generate_combinations(unique_items, k)
 
-    # Iteratively build larger frequent itemsets
-    while current_frequents:
-        candidates = generate_candidates(current_frequents, k)
-        candidate_counts = {}
-        for t in transaction_list:
-            tset = set(t)
-            for c in candidates:
-                if c.issubset(tset):
-                    candidate_counts[c] = candidate_counts.get(c, 0) + 1
-        Lk = {c: cnt / total for c, cnt in candidate_counts.items() if cnt / total >= min_support}
-        current_frequents = set(Lk.keys())
-        frequents.update(Lk)
-        k += 1
+            item_count = {}
+            for transaction in transactions:
+                for candidate in candidates:
+                    if all(item in transaction for item in candidate):
+                        key = tuple(sorted(candidate))
+                        item_count[key] = item_count.get(key, 0) + 1
 
-    return frequents
+            current_l_set = []
+            for item, count in item_count.items():
+                support = count / num_transactions
+                if support >= self.min_support:
+                    current_l_set.append(list(item))
+                    self.support_data[item] = support
+            k += 1
 
+    def generate_rules(self):
+        self.rules = []
+        for itemset in self.frequent_itemsets:
+            if len(itemset) >= 2:
+                n = len(itemset)
+                for i in range(1, n):
+                    subsets = self._generate_combinations(itemset, i)
+                    for antecedent in subsets:
+                        consequent = [i for i in itemset if i not in antecedent]
+                        if consequent:
+                            ant_key = tuple(sorted(antecedent))
+                            full_key = tuple(sorted(itemset))
+                            confidence = self.support_data[full_key] / self.support_data[ant_key]
+                            if confidence >= self.min_confidence:
+                                self.rules.append((antecedent, consequent, confidence))
 
-def generate_rules(frequent_itemsets, min_confidence):
-    """
-    Generate association rules from frequent itemsets.
-    Returns a list of dicts with keys: antecedent, consequent, support, confidence, lift.
-    """
-    rules = []
-    for itemset, support in frequent_itemsets.items():
-        if len(itemset) < 2:
-            continue
-        # all possible non-empty antecedents
-        for i in range(1, len(itemset)):
-            for antecedent in itertools.combinations(itemset, i):
-                ant = frozenset(antecedent)
-                cons = itemset - ant
-                ant_support = frequent_itemsets.get(ant, 0)
-                if ant_support == 0:
-                    continue
-                confidence = support / ant_support
-                cons_support = frequent_itemsets.get(cons, 0)
-                lift = confidence / cons_support if cons_support > 0 else 0
-                if confidence >= min_confidence:
-                    rules.append({
-                        'antecedent': ant,
-                        'consequent': cons,
-                        'support': support,
-                        'confidence': confidence,
-                        'lift': lift
-                    })
-    return rules
+    def print_frequent_itemsets(self):
+        print("Frequent Itemsets:")
+        for item in self.frequent_itemsets:
+            print(item, "Support:", round(self.support_data[tuple(sorted(item))], 4))
 
-
-def apriori(transactions, min_support=0.05, min_confidence=0.5):
-    """
-    Run Apriori over the given transactions.
-    Returns a tuple (frequent_itemsets, rules).
-    - frequent_itemsets: dict[frozenset -> support]
-    - rules: list of rule dicts
-    """
-    frequents = get_frequent_itemsets(transactions, min_support)
-    rules = generate_rules(frequents, min_confidence)
-    return frequents, rules
+    def print_rules(self):
+        print("\nAssociation Rules:")
+        for antecedent, consequent, confidence in self.rules:
+            print(f"{antecedent} => {consequent}, Confidence: {round(confidence, 2)}")

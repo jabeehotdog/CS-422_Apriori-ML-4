@@ -61,12 +61,7 @@
 -->
 
 
-This project demonstrates K-means clustering on the Iris dataset using petal length and width features. The implementation includes data preprocessing, model training, evaluation, and visualization of results. Key components:
-
-- **Data Preprocessing**: Scales features and maps cluster labels to true species.
-- **Model Training**: Uses the elbow method to determine optimal clusters (fixed at k=3 for Iris).
-- **Visualization**: Generates plots for the elbow method, clustering results, true species distribution, and a confusion matrix.
-- **Animation**: Version 3 includes an animated visualization showing the evolution of K-means clustering in 3D space.
+Apriori Algorithm is a foundational method in data mining used for discovering frequent itemsets and generating association rules. Its significance lies in its ability to identify relationships between items in large datasets which is particularly valuable in market basket analysis.
 
 
 ## How to use this project<!-- Required -->
@@ -79,7 +74,7 @@ This project demonstrates K-means clustering on the Iris dataset using petal len
 - Clone this repository into your local machine.
 
 ```bash
-    git clone https://github.com/AJSahagun/CS-422_K-Means_Clustering.git
+    git clone https://github.com/jabeehotdog/CS-422_Apriori-ML-4.git
 ```
 
 - Set up your environment
@@ -87,22 +82,12 @@ This project demonstrates K-means clustering on the Iris dataset using petal len
     pip install -r requirements.txt
 ```
 
-- Change the import path on `main.py` based on what version you will run
-```python
-from src.ver_1.preprocessing import load_and_preprocess_data
-. . .
-from src.ver_1.visualization import plot_clustering_analysis, calculate_wcss, find_elbow_point
-```
 
 Run the main script:
-- For Version 1 and 2
 ```bash
-    python main1-2.py
+    python main.py
 ```
-- For Version 3
-```bash
-    python main3.py
-```
+
 
 ## Demo<!-- Required -->
 <!-- 

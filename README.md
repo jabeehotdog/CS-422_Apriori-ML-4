@@ -96,46 +96,14 @@ Run the main script:
 * It's recommended to use GIFs as they are more dynamic
 -->
 
-### Version 1 - Features: Petal Length & Width (2D)
-<img src="./img/visualization1.png" alt="Visualization for version 1" height="290">
+### Result
+-<img src="./img\frequent itemsets.png" alt="Visualization frequent itemsets" height="290">
 
-```commandline
-Model Evaluation Metrics
-Optimal K: 2
-Precision: 0.503
-Recall: 0.670
-F1-Score: 0.559
-```
+- <img src="./img\confidence.png" alt="Visualization Confidence" height="290">
 
-### Version 2 - Features: Sepal Length & Width (2D)
-<img src="./img/visualization2.png" alt="Visualization for version 2" height="290">
 
-```commandline
-Model Evaluation Metrics
-Optimal K: 2
-Precision: 0.503
-Recall: 0.670
-F1-Score: 0.559
-```
 
-### Version 3 - Features: Petal Length & Width, Sepal Width (3D)
-<img src="./img/visualization3.png" alt="Visualization for version 3" height="290">
 
-```commandline
-K-means converged after 5 iterations
-
-Model Evaluation Metrics
-Optimal K: 2
-Precision: 0.503
-Recall: 0.670
-F1-Score: 0.559
-```
-
-### Version 3 - K-means Iteration Visualization
-<img src="./img/kmeans_iterations.png" alt="K-means iterations visualization" height="290">
-
-### Version 3 - K-means Animation
-<img src="./img/kmeans_animation.gif" alt="K-means animation" height="290">
 
 ### Output
 

@@ -105,21 +105,7 @@ Run the main script:
 
 
 
-### Output
 
-- A 2x2 visualization grid:
-  1. Elbow Method Plot 
-  2. K-means Clustering Results 
-  3. True Species Distribution 
-  4. Confusion Matrix
-- Iteration visualizations showing clustering progress (New in Version 3)
-- Animated visualization of K-means algorithm (New in Version 3)
-- Printed evaluation metrics (Optimal k, precision, recall, F1-score).
-
-<div align="center">
-
-[//]: # (    <img alt="demo" src="https://user-images.githubusercontent.com/59213365/198179320-b9ec79a6-b5ca-47b9-9f29-125d18f6be70.gif">)
-</div>
 
 ## Table of Contents<!-- Optional -->
 <!-- 
@@ -166,7 +152,7 @@ Run the main script:
 - [x] Evaluate the Model's accuracy
 - [x] Implement visualization
 - [x] Implement Revisions
-- [x] Add animated visualization of K-means process
+- [x] Add visualization improvements
 
 
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
@@ -182,93 +168,20 @@ Run the main script:
 CS-422_K-Means_Clustering/
 │
 ├── data/
-│   ├── Iris-Original.csv
-│   └── ml_group-4_iris_dataset.csv
-│
-├── src/
-│   ├── ver_1/                 # Features: Petal Length & Width (2D)
-│   │   ├── preprocessing.py
-│   │   └── visualization.py
-│   ├── ver_2/                 # Features: Sepal Length & Width (2D)
-│   │   ├── preprocessing.py
-│   │   └── visualization.py
-│   ├── ver_3/                 # Features: Petal Length & Width, Sepal Width (3D)
-│   │   ├── preprocessing.py
-│   │   └── visualization.py
-│   ├── custom_kmeans.py       # KMeans model implementation with iteration tracking
-│   └── kmeans_model.py        # KMeans model from Sci-kit
-│   
-│
-├── notebook/
-│   └── kmeans.ipynb           # Jupyter notebook for the model
+│   ├── kaggle_Interests_group.csv
 │
 ├── img/
-│   ├── logo.jpg               # Picture logo used in Read me
-│   ├── visualization1.png     # Demo picture for version 1
-│   ├── visualization2.png     # Demo picture for version 2
-│   ├── visualization3.png     # Demo picture for version 3
-│   ├── kmeans_iterations.png  # K-means iteration steps visualization
-│   └── kmeans_animation.gif   # Animated visualization of K-means process
-│
+│   ├── confidence.png
+│   ├── frequent itemsets.png
+│   └──logo.png
+├── src/
+│   ├── custom_apriori.py
+│   ├── preprocess.py
+│   └── visualization.py
 ├── requirements.txt           # Project dependencies
 ├── README.md                  # Project documentation
-├── main1-2.py                 # Main script to run version 1 & 2
-└── main3.py                   # Main script to run version 3
+└── main.py                  
 ```
-
-### Module Documentation
-
-#### `main3.py`
-**Entry point for Version 3:**
-1. Loads and preprocesses data 
-2. Calculates WCSS for elbow method 
-3. Trains model with optimal k=3 
-4. Evaluates performance 
-5. Generates composite visualization
-6. Shows iteration-by-iteration progress of K-means
-7. Creates and displays animated visualization of clustering process
-
-#### `preprocessing.py`
-**Data handling:**
-- load_and_preprocess_data(file_path)
-- Returns: (X_scaled, y, scaler)
-  - Loads data 
-  - Extracts petal features 
-  - Scales features using StandardScaler
-- create_label_mapping(true_labels, cluster_labels)
-- Returns: Best label mapping dictionary 
-  - Finds optimal cluster-to-species mapping using permutation accuracy tests
-
-#### `custom_kmeans.py`
-**Custom clustering implementation:**
-- KMeans class: (Core algorithm with)
-  - Random centroid initialization 
-  - Iterative centroid updating 
-  - Convergence checking 
-  - WCSS calculation
-  - New: Tracking centroids and labels for each iteration
-- IrisKMeans wrapper class: (Methods)
-  - fit(): Train model 
-  - predict(): Get cluster labels 
-  - evaluate(): Returns metrics dictionary with:
-    - Confusion matrix 
-    - Precision/Recall/F1-score
-  - get_iteration_history(): Returns tracked centroids and labels history
-
-#### `visualization.py`
-**Plotting functions:**
-- plot_clustering_analysis(): (Generates 4-panel figure showing)
-  1. Elbow method curve 
-  2. Cluster assignments with centroids
-  3. True species distribution
-  4. Confusion matrix
-- calculate_wcss():
-  - Computes WCSS values for k=1 to max_k
-- New: plot_kmeans_iterations():
-  - Creates a series of 3D plots showing how clusters evolve in each iteration
-- New: create_kmeans_animation():
-  - Creates an animated visualization showing the progressive movement of centroids
-  - Shows real-time assignment of points to clusters
 
 
 ## Contributors<!-- Required -->
@@ -278,8 +191,8 @@ CS-422_K-Means_Clustering/
 * Generate github contributors Image here https://contrib.rocks/preview?repo=angular%2Fangular-ja
 -->
 
-<a href="https://github.com/AJSahagun/CS-422_K-Means_Clustering/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AJSahagun/CS-422_K-Means_Clustering" />
+<a href="https://github.com/jabeehotdog/CS-422_Apriori-ML-4/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jabeehotdog/CS-422_Apriori-ML-4" />
 </a>
 
 
@@ -291,17 +204,17 @@ CS-422_K-Means_Clustering/
 -->
 ### Group Members
 #### Data Gathering
-- CARL JUSTIN ULARTE
-- RONALDO PESIGAN
+- AARON JOHN SAHAGUN
 #### Model Development
 - MICHAEL JOHN RHEY MASAGNAY
-- AARON JOHN SAHAGUN
+- JOHN PAUL MEDRANO
 - ROSELER TANEDO JR
 #### Documentation
-- JOHN PAUL MEDRANO
+- CARL JUSTIN ULARTE
 - JOHN HAROLD PRIETO
 - DESXZOR NAVARRO
 - CAREN TOLENTINO
+- RONALDO PESIGAN
 
 
 <!-- - Use this html element to create a back to top button. -->

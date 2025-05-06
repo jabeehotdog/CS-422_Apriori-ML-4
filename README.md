@@ -35,7 +35,7 @@
 
 
 <div align="center">
-    <a href="https://github.com/jabeehotdog/CS-422_Apriori-ML-4/" target="_blank">
+    <a href="https://github.com/jabeehotdog/" target="_blank">
         <img src="./img/logo.jpg" 
         alt="Logo" height="290">
     </a>

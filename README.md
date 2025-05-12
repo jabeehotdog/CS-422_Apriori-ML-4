@@ -97,9 +97,11 @@ Run the main script:
 -->
 
 ### Result
--<img src="./img\frequent itemsets.png" alt="Visualization frequent itemsets" height="290">
+- <img src="./img/BySize.png" alt="Frequency by Size" height="290">
 
-- <img src="./img\confidence.png" alt="Visualization Confidence" height="290">
+- <img src="./img/Failed Rules.png" alt="Failed Rules.png" height="290">
+
+- <img src="./img/Success Rules.png" alt="Success Rules.png" height="290">
 
 
 
